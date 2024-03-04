@@ -26,18 +26,13 @@ public class RabbitSimulator {
         while (rabbits.get(0).getAge() < 365) {
             // Iterates through all the current rabbits
             for (Rabbit rabbit : rabbits) {
-                // Checks all the factors that allow a rabbit to breed
-                if (rabbit.getSex() == 'F' && rabbit.canGetPregnant() && !rabbit.getIsBreeding()) {
+                if (rabbit.canGetPregnant()) { // Checks all the factors that allow a rabbit to breed
                     System.out.println(rabbit);
                     rabbit.breed();
-                    // Checks all the factors that allow a rabbit to give birth
-                } else if (rabbit.canGetPregnant() && rabbit.getIsBreeding()) {
+                } else if (rabbit.canGiveBirth()) { // Checks all the factors that allow a rabbit to give birth
                     rabbit.birth();
                 } else {
-                    // Simulates one day of the rabbits life
-                    rabbit.setAge(rabbit.getAge() + 1);
-                    rabbit.setDaysAfterBirth(rabbit.getDaysAfterBirth() + 1);
-                    rabbit.setGestationalPeriod(rabbit.getGestationalPeriod() - 1);
+                    rabbit.cycleDay(); // Simulates one day of the rabbits life
                 }
             }
             // Adds the new rabbits to the list

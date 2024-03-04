@@ -54,12 +54,12 @@ public class Rabbit {
         gestationalPeriod--;
     }
 
-    public boolean canGetPregnant() {
-        return gestationalPeriod <= 0 && age >= 100 && daysAfterBirth >= 7;
+    public boolean canGiveBirth() {
+        return sex == 'F' && gestationalPeriod <= 0 && age >= 100 && daysAfterBirth >= 7 && isBreeding;
     }
 
-    public boolean canGiveBirth() {
-        return gestationalPeriod <= 0 && daysAfterBirth >= 7;
+    public boolean canGetPregnant() {
+        return sex == 'F' && gestationalPeriod <= 0 && age >= 100 && daysAfterBirth >= 7 && !isBreeding;
     }
 
     public char getSex() {
