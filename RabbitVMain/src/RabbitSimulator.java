@@ -1,12 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RabbitSimulator {
 
     // TODO Try and avoid using static variables
-    public static ArrayList<Rabbit> totalRabbits = new ArrayList<>();
+    public static ArrayList<Rabbit> rabbits = new ArrayList<>();
     public static ArrayList<Rabbit> newRabbits = new ArrayList<>();
     public static int maleRabbits = 0;
     public static int femaleRabbits = 0;
@@ -18,38 +19,9 @@ public class RabbitSimulator {
 
         readRabbitData();
 
-
-/*
-        // Simulates the rabbits life for a year
-        while (rabbits.get(0).getAge() < 365) {
-            // Iterates through all the current rabbits
-            for (Rabbit rabbit : rabbits) {
-                // Checks all the factors that allow a rabbit to breed
-                if (rabbit.getSex() == 'F' && rabbit.canGetPregnant() && !rabbit.getIsBreeding()) {
-                    System.out.println(rabbit);
-                    rabbit.breed();
-                    // Checks all the factors that allow a rabbit to give birth
-                } else if (rabbit.canGetPregnant() && rabbit.getIsBreeding()) {
-                    rabbit.birth();
-                } else {
-                    // Simulates one day of the rabbits life
-                    rabbit.setAge(rabbit.getAge() + 1);
-                    rabbit.setDaysAfterBirth(rabbit.getDaysAfterBirth() + 1);
-                    rabbit.setGestationalPeriod(rabbit.getGestationalPeriod() - 1);
-                }
-            }
-            // Adde the new rabbits to the list
-            rabbits.addAll(newRabbits);
-
-            // Removes the new rabbits from the temporary list
-            newRabbits.clear();
-            System.out.println(rabbits.size());
-        }
-        System.out.println("Female Rabbits: " + femaleRabbits);
-        System.out.println("Male Rabbits: " + maleRabbits);*/
     }
 
-    public static void rabbitLifecycle(ArrayList<Rabbit> rabbits) {
+    public static void rabbitLifecycle() {
         // Simulates the rabbits life for a year
         while (rabbits.get(0).getAge() < 365) {
             // Iterates through all the current rabbits
@@ -68,7 +40,7 @@ public class RabbitSimulator {
                     rabbit.setGestationalPeriod(rabbit.getGestationalPeriod() - 1);
                 }
             }
-            // Adde the new rabbits to the list
+            // Adds the new rabbits to the list
             rabbits.addAll(newRabbits);
 
             // Removes the new rabbits from the temporary list
@@ -81,8 +53,9 @@ public class RabbitSimulator {
     public static void readRabbitData() {
         ArrayList<Rabbit> rabbitData = new ArrayList<>();
 
-        // Creates a file object
-        File file = new File("C:\\Users\\mjhem\\Downloads\\rabbitInput.txt");
+        // Grabs the file from relative path
+        URL url = RabbitSimulator.class.getResource("input.txt");
+        File file = new File(url.getPath());
 
         // Attempts to read the file
         try (Scanner scanner = new Scanner(file)) {
@@ -108,8 +81,8 @@ public class RabbitSimulator {
                 for (int i = 0; i < males; i++) {
                     rabbitData.add(new Rabbit('M'));
                 }
-
-                rabbitLifecycle(rabbitData);
+                rabbits.addAll(rabbitData);
+                rabbitLifecycle();
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
