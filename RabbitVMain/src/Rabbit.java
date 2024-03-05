@@ -38,26 +38,45 @@ public class Rabbit {
             if (femaleOrMale == 0) {
                 RabbitSimulator.femaleRabbits += 1;
                 RabbitSimulator.newRabbits.add(new Rabbit('F'));
-                System.out.println("FEMALE RABBIT BORN");
+//                System.out.println("FEMALE RABBIT BORN");
             } else {
                 RabbitSimulator.maleRabbits += 1;
                 RabbitSimulator.newRabbits.add(new Rabbit('M'));
-                System.out.println("MALE RABBIT BORN");
+//                System.out.println("MALE RABBIT BORN");
             }
         }
-        System.out.println("LITTER BORN");
+//        System.out.println("LITTER BORN");
     }
 
+    /**
+     * Simulates one day of the rabbits' life.
+     * Reduces the gestational period by 1.
+     * Increases the days after birth by 1.
+     * Increases the age by 1.
+     */
     public void cycleDay() {
         age++;
         daysAfterBirth++;
         gestationalPeriod--;
     }
 
+    public void resetRabbit() {
+        age = 0;
+        gestationalPeriod = 0;
+        daysAfterBirth = 7;
+        isBreeding = false;
+    }
+
+    /**
+     * Checks if the rabbit can give birth.
+     */
     public boolean canGiveBirth() {
         return sex == 'F' && gestationalPeriod <= 0 && age >= 100 && daysAfterBirth >= 7 && isBreeding;
     }
 
+    /**
+     * Checks if the rabbit can get pregnant.
+     */
     public boolean canGetPregnant() {
         return sex == 'F' && gestationalPeriod <= 0 && age >= 100 && daysAfterBirth >= 7 && !isBreeding;
     }
