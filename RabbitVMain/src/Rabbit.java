@@ -19,9 +19,18 @@ public class Rabbit {
     private int daysAfterBirth = 7;
     private boolean isBreeding;
 
+
+    /**
+     * Constructor for the Rabbit class.
+     * @param sex The gender of the rabbit.
+     */
     public Rabbit(char sex) {
         this.sex = sex;
     }
+
+    /**
+     * Simulates the breeding of the rabbit.
+     */
     public void breed() {
         isBreeding = true;
         Random rand = new Random();
@@ -29,6 +38,9 @@ public class Rabbit {
         gestationalPeriod = rand.nextInt(32 - 28 + 1) + 28; //
     }
 
+    /**
+     * Simulates the birth of the rabbit.
+     */
     public void birth() {
         isBreeding = false;
         daysAfterBirth = 0;
@@ -38,21 +50,15 @@ public class Rabbit {
             if (femaleOrMale == 0) {
                 RabbitSimulator.femaleRabbits += 1;
                 RabbitSimulator.newRabbits.add(new Rabbit('F'));
-//                System.out.println("FEMALE RABBIT BORN");
             } else {
                 RabbitSimulator.maleRabbits += 1;
                 RabbitSimulator.newRabbits.add(new Rabbit('M'));
-//                System.out.println("MALE RABBIT BORN");
             }
         }
-//        System.out.println("LITTER BORN");
     }
 
     /**
      * Simulates one day of the rabbits' life.
-     * Reduces the gestational period by 1.
-     * Increases the days after birth by 1.
-     * Increases the age by 1.
      */
     public void cycleDay() {
         age++;
@@ -60,6 +66,9 @@ public class Rabbit {
         gestationalPeriod--;
     }
 
+    /**
+     * Resets the rabbit to its initial state.
+     */
     public void resetRabbit() {
         age = 0;
         gestationalPeriod = 0;
